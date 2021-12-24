@@ -1,0 +1,30 @@
+#!/bin/bash
+
+CLANGVER=clang-r399163b
+ANDROIDBRANCH=llvm-r399163b
+if [ -d $CLANGVER ]; then
+   echo "clang is ready"
+else
+   mkdir $CLANGVER && cd $CLANGVER
+   wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/$ANDROIDBRANCH/$CLANGVER.tar.gz
+   tar -xzf $CLANGVER.tar.gz
+   cd ..
+
+if [ -d aarch64-linux-android-4.9 ]; then
+   echo "aarch64 toolchain is ready"
+else
+   git clone -b $ANDROIDBRANCH --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9
+
+export ARCH=arm64
+export SUBARCH=arm64
+export DTC_EXT=dtc
+export CLANG_TRIPLE=aarch64-linux-gnu-
+export CROSS_COMPILE=aarch64-linux-androidkernel-
+export LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN=$(pwd)/aarch64-linux-android-4.9/bin
+export CLANG_PREBUILT_BIN=$(pwd)/$CLANGVER/bin
+
+BUILDPARAMS="CC=clang LD=ld.lld EXTRA_CMDS='' STOP_SHIP_TRACEPRINTK=1"
+
+export PATH=$PATH:$LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN:$CLANG_PREBUILT_BIN
+
+make $BUILDPARAMS mrproper

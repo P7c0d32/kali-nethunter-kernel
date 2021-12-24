@@ -11,7 +11,7 @@ EDIT=vi
 # Architecture
 export ARCH=arm64
 export SUBARCH=arm64
-export DTC_EXT=dtc
+#export DTC_EXT=dtc
 
 # Enable ccache to speed up compilation
 CCACHE=false
@@ -32,7 +32,7 @@ CLANG_SRC_TYPE="wget"
 # GCC 64bit
 ## arm64 cross compiler directory:
 CCD64="${TD}/aarch64"
-export CROSS_COMPILE=${CCD64}/bin/aarch64-linux-android-
+export CROSS_COMPILE=${CCD64}/bin/aarch64-linux-androidkernel-
 ## Source repository:
 CROSS_COMPILE_SRC="https://images.kali.org/nethunter/toolchains/google_aarch64-4.9.tar.xz"
 CROSS_COMPILE_SRC_TYPE="wget"

@@ -6,7 +6,7 @@
 ## AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=NetHunter Kernel for the OnePlus 7 Pro
+kernel.string=NetHunter Kernel for the OnePlus 8 series
 do.devicecheck=1
 do.modules=1
 do.systemless=0 #Never use this for NetHunter kernels as it prevents us from writing to /lib/modules
